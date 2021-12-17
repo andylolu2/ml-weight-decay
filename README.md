@@ -3,6 +3,8 @@
 Repository for seeing how weight decay is able to help 
 models generalize.
 
+Go to the [blog folder](blog/) to read the associated blog post.
+
 ## Run
 
 Main script example
