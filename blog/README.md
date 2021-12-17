@@ -174,9 +174,11 @@ weight decay. Some trial and error is unavoidable. However,
 there are some rules that you can follow. Researches proposing 
 the AdamW optimizer has suggested the following rule:
 
-$$
+<!-- $$
 \lambda = \lambda_{norm}\sqrt{\frac{b}{BT}}
-$$
+$$ --> 
+
+<div align="center"><img style="background: white;" src="../svg/HXmWJlrGk0.svg"></div>
 
 where `b` the batch size, `B` is the total number of training points, 
 and `T` is the total number of epochs. Now the hyperparameter 
