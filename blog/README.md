@@ -208,7 +208,11 @@ It is certainly not the first time that I've seen this
 behaviour. It seems like these fluctuations come in when 
 the model is about to converge. So what is causing it?
 
-![batch norm formula from PyTorch](batch_norm.png)
+<!-- $$
+y = \frac{x-\text{E}[x]}{\sqrt{\text{Var}[x]+\epsilon}} * \gamma + \beta
+$$ --> 
+
+<div align="center"><img style="background: white;" src="../svg/aqLlRb2Bqg.svg"></div>
 
 It has to do with how batch norm layers work. The above shows 
 the formula for how batch norm computes its outputs. Here, `x` is 
