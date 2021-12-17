@@ -183,7 +183,8 @@ the AdamW optimizer has suggested the following rule:
 \lambda = \lambda_{norm}\sqrt{\frac{b}{BT}}
 $$ --> 
 
-<div align="center"><img style="background: white;" src="../svg/HXmWJlrGk0.svg"></div>
+<div align="center"><img style="background: white;" src="svg/Gvr1lR2HT4.svg"></div>
+
 
 where `b` the batch size, `B` is the total number of training points, 
 and `T` is the total number of epochs. Now the hyperparameter 
@@ -222,7 +223,8 @@ In summary, it has to do with how batch norm layers work.
 y = \frac{x-\text{E}[x]}{\sqrt{\text{Var}[x]+\epsilon}} * \gamma + \beta
 $$ --> 
 
-<div align="center"><img style="background: white;" src="../svg/aqLlRb2Bqg.svg"></div>
+<div align="center"><img style="background: white;" src="svg/jvA81AH4mw.svg"></div>
+
 
 The above shows 
 the formula for how batch norm computes its outputs. Here, `x` is 
