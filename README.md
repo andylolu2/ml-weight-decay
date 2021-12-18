@@ -3,7 +3,8 @@
 Repository for seeing how weight decay is able to help 
 models generalize.
 
-Go to the [blog folder](blog/) to read the associated blog post.
+You can read the associated blog on [Medium](https://medium.com/@andylolu24/weight-decay-and-its-peculiar-effects-66e0aee3e7b8?source=friends_link&sk=d4296f54a91775679d1521b77c763050). 
+Alternatively, you can go to the [blog folder](blog/) to read it.
 
 ## Run
 

@@ -1,7 +1,8 @@
 # Weight Decay and Its Peculiar Effects
 
-> How does it work, why does it work, and some practical tips.
+> How it works, why it works, and some practical tips.
 
+This blog can also be found on [Medium](https://medium.com/@andylolu24/weight-decay-and-its-peculiar-effects-66e0aee3e7b8?source=friends_link&sk=d4296f54a91775679d1521b77c763050).
 
 ### What is weight decay?
 
@@ -42,7 +43,7 @@ optimizer = torch.optim.Adam(params, lr=3e-4, weight_decay=1e-3)
 But how does weight decay actually help the model? Under what circumstances
 should we use it?
 
-First, we have to understand why models fail to generalize. 
+First, we have to understand why sometimes models fail to generalize. 
 
 #### Classical regime
 
@@ -62,8 +63,7 @@ to **low train error** but **high test error**.
 
 In either case, the 
 model fails to generalize. The classical wisdom is that the best 
-models lie between these two regions. A typical example is shown 
-above.
+models lie between these two regions.
 
 Weight decay here acts as a method to **lower the model's capacity** 
 such that an over-fitting model does not overfit as much and gets 
@@ -131,9 +131,13 @@ label = [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0]    # 100
 It is trained on 2 and 4 digit addition and tested on 3 digit addition 
 to measure its generalization ability.
 
-Here is a plot of train and test accuracy against weight decay factor:
+My model consists 2 residual blocks, each with width 256, summing up to 
+a total of 300K parameters, which would almost definitely operate 
+within the "over-parameterized" region. I trained it for various values 
+of the weight decay factor and here is a plot of it against the 
+train and test accuracy:
 
-![plot of accuracy against lambda](static/lambda_vs_accuracy.png)
+![Plot of accuracy against lambda](static/lambda_vs_accuracy.png)
 
 We can see that for this model, suitable values of λ is around 0.1. 
 
@@ -144,7 +148,7 @@ simpler interpolations, so the test accuracy is very low.
 On the right-hand side, where λ is too high, the model gets restricted 
 too much by being forced to use very small weights so that it is not 
 expressive enough to even fit the training data. Thus, both the 
-train and test accuracies are low.
+train and test accuracy are low.
 
 According to our intuition above, we expect to see a 
 dip in test accuracy at the interpolation threshold -- but we don't. Why?
@@ -174,6 +178,8 @@ Simpler interpolations = profit!
 
 ### Picking the right value
 
+OK, so weight decay is pretty useful. Now how can I pick the right 
+values of λ?
 In general, there is no golden rule to picking the value of 
 weight decay. Some trial and error is unavoidable. However, 
 there are some rules that you can follow. Researches proposing 
@@ -215,6 +221,8 @@ behavior. It seems like these fluctuations starts to
 appear when 
 the model is about to converge. So what is causing it?
 
+![Batch norm and weight decay](static/batch_norm_and_weight_decay.png)
+
 I turned to Google for answers and came across this paper: 
 [On the Periodic Behavior of Neural Network Training with Batch Normalization and Weight Decay](https://arxiv.org/abs/2106.15739). 
 In summary, it has to do with how batch norm layers work. 
@@ -242,8 +250,6 @@ the batch norm layer, it divides it by a near-zero value, causing the
 final output to blow up. This causes the huge fluctuations as we see 
 from the graph below.
 
-![Batch norm and weight decay](static/batch_norm_and_weight_decay.png)
-
 After it blows up, the weight gets updated to some large value 
 due to the huge gradient at that step, so the variance becomes 
 high again. Again, the weight will start to decay, and the process 
@@ -263,13 +269,9 @@ better by learning smoother functions. In the classical
 (under-parameterized) regime, it helps to restrict models from 
 over-fitting, while in the over-parameterized regime, it helps 
 to guide models towards simpler interpolations. In practice, 
-there is a sweet spot where a particular weight decay 
-value works the best. Sometimes, it can cause unwanted side effects 
-such as period fluctuations due to how it interacts with 
-batch normalization layers.
+there is a sweet range of weight decay values that work the best.
 
-In any case, weight decay is a very power tool to help models 
-generalize.
+Hope you found this blog useful!
 
 ### References
 
